@@ -1,222 +1,108 @@
-# 🔍 Port Scanner - Bash Network Security Tool
+# PortScan Pro
 
-<div align="center">
+```
+  ██████╗  ██████╗ ██████╗ ████████╗███████╗ ██████╗ █████╗ ███╗   ██╗
+  ██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝██╔════╝██╔════╝██╔══██╗████╗  ██║
+  ██████╔╝██║   ██║██████╔╝   ██║   ███████╗██║     ███████║██╔██╗ ██║
+  ██╔═══╝ ██║   ██║██╔══██╗   ██║   ╚════██║██║     ██╔══██║██║╚██╗██║
+  ██║     ╚██████╔╝██║  ██║   ██║   ███████║╚██████╗██║  ██║██║ ╚████║
+  ╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝
+```
 
-![Bash](https://img.shields.io/badge/Bash-4.0%2B-green?style=for-the-badge&logo=gnu-bash&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
-![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS-lightgrey?style=for-the-badge)
+A fast multi-threaded port scanner with CLI and interactive mode.
 
-**Un scanner de ports TCP léger et efficace écrit entièrement en Bash.**
-
-[Fonctionnalités](#-fonctionnalités) •
-[Installation](#-installation) •
-[Utilisation](#-utilisation) •
-[Exemples](#-exemples) •
-[Auteur](#-auteur)
-
-</div>
-
----
-
-## 📋 Description
-
-**Port Scanner** est un outil en ligne de commande qui permet de vérifier rapidement si des ports TCP sont ouverts sur une machine cible. Développé entièrement en Bash sans dépendances externes, il est idéal pour :
-
-- 🔒 **Audit de sécurité** : Identifier les ports exposés sur vos serveurs
-- 🔧 **Diagnostic réseau** : Vérifier si un service est accessible
-- 📊 **Inventaire** : Documenter les services actifs sur votre infrastructure
-
-## ✨ Fonctionnalités
-
-- ✅ Scan de ports individuels ou par plage
-- ✅ Détection automatique des services courants (SSH, HTTP, MySQL, etc.)
-- ✅ Mode verbose pour le débogage
-- ✅ Export des résultats dans un fichier
-- ✅ Timeout configurable pour les scans rapides
-- ✅ Interface colorée et intuitive
-- ✅ Barre de progression pour les longs scans
-- ✅ Gestion robuste des erreurs
-
-## 📦 Prérequis
-
-| Dépendance | Version | Utilisation |
-|------------|---------|-------------|
-| `bash` | 4.0+ | Interpréteur principal |
-| `timeout` | (coreutils) | Gestion des délais de connexion |
-
-> **Note** : Ces outils sont préinstallés sur la plupart des distributions Linux et macOS.
-
-### Vérification des prérequis
+## Installation
 
 ```bash
-# Vérifier la version de Bash
-bash --version
-
-# Vérifier que timeout est disponible
-which timeout
+git clone https://github.com/RDaneel-5090/portscan-pro.git
+cd portscan-pro
+pip install scapy  # optional, for advanced scans
 ```
 
-## 🚀 Installation
+> **Windows**: Install [Npcap](https://npcap.com) first.
 
-### Option 1 : Cloner le dépôt (recommandé)
+## Usage
 
 ```bash
-# Cloner le projet
-git clone https://github.com/RDaneel-5090/port-scanner.git
+# Interactive mode
+python portscan_pro.py
 
-# Accéder au répertoire
-cd port-scanner
-
-# Rendre le script exécutable
-chmod +x portscan.sh
+# CLI mode
+python portscan_pro.py -H 192.168.1.1 -p 22,80,443
+python portscan_pro.py -H example.com -r 1-1000
+python portscan_pro.py -H 10.0.0.1 -p top -o results.json
 ```
 
-### Option 2 : Téléchargement direct
+## Commands (Interactive)
 
-```bash
-# Télécharger le script
-curl -O https://raw.githubusercontent.com/RDaneel-5090/port-scanner/main/portscan.sh
+| Command | Description |
+|---------|-------------|
+| `scan`  | Custom scan (choose target, ports, type) |
+| `quick` | Quick scan — top 100 ports |
+| `full`  | Full scan — all 65535 ports |
+| `common`| Web ports only (80, 443, 8080...) |
+| `help`  | Show scan types |
+| `exit`  | Quit |
 
-# Rendre exécutable
-chmod +x portscan.sh
-```
+## CLI Options
 
-## 📖 Utilisation
+| Option | Description |
+|--------|-------------|
+| `-H`   | Target host (IP or hostname) |
+| `-p`   | Ports (`22,80,443` or `top` or `*`) |
+| `-r`   | Port range (`1-1000`) |
+| `-s`   | Scan type (1-8) |
+| `-t`   | Timeout in seconds |
+| `-T`   | Number of threads |
+| `-o`   | Output file (.txt or .json) |
+| `-v`   | Verbose mode |
 
-### Syntaxe générale
+## Port Formats
 
-```bash
-./portscan.sh -h <host> [OPTIONS]
-```
+| Format | Example | Description |
+|--------|---------|-------------|
+| Single | `80` | Scan port 80 |
+| Range | `1-1000` | Scan ports 1 to 1000 |
+| List | `22,80,443` | Scan specific ports |
+| Top | `top` | Top 100 common ports |
+| All | `*` | All 65535 ports |
 
-### Options disponibles
+## Scan Types
 
-| Option | Description | Exemple |
-|--------|-------------|---------|
-| `-h, --host` | Hôte cible (IP ou domaine) **[REQUIS]** | `-h 192.168.1.1` |
-| `-p, --ports` | Liste de ports (séparés par des virgules) | `-p 22,80,443` |
-| `-r, --range` | Plage de ports à scanner | `-r 1-1000` |
-| `-t, --timeout` | Délai d'attente par port (défaut: 1s) | `-t 0.5` |
-| `-o, --output` | Fichier de sortie pour les résultats | `-o results.txt` |
-| `-v, --verbose` | Mode verbeux (plus de détails) | `-v` |
-| `-H, --help` | Afficher l'aide | `-H` |
-| `-V, --version` | Afficher la version | `-V` |
+| # | Type | Description |
+|---|------|-------------|
+| 1 | TCP Connect | Full handshake — reliable, no root |
+| 2 | TCP SYN | Half-open — stealth, needs root |
+| 3 | UDP | UDP scan — slow |
+| 4 | NULL | No flags — evades firewalls |
+| 5 | FIN | FIN flag only |
+| 6 | Xmas | FIN+PSH+URG flags |
+| 7 | ACK | Firewall detection |
+| 8 | Window | TCP window analysis |
 
-## 💡 Exemples
+> Types 2-8 require Scapy and root privileges.
 
-### Scan basique de ports web
-
-```bash
-./portscan.sh -h example.com -p 80,443
-```
-
-**Sortie :**
-```
-  PORT     STATUT       SERVICE
-  ────────────────────────────────────
-  80       OPEN         (HTTP)
-  443      OPEN         (HTTPS)
-```
-
-### Scan d'une plage de ports
-
-```bash
-./portscan.sh -h 192.168.1.1 -r 20-25 -v
-```
-
-### Scan rapide avec timeout réduit
-
-```bash
-./portscan.sh -h scanme.nmap.org -r 1-100 -t 0.3
-```
-
-### Scan avec export des résultats
-
-```bash
-./portscan.sh -h myserver.com -p 22,80,443,3306,5432 -o audit.txt
-```
-
-### Scan des ports de bases de données
-
-```bash
-./portscan.sh -h database.local -p 3306,5432,27017,6379
-```
-
-## 🎯 Services détectés automatiquement
-
-Le scanner identifie automatiquement les services suivants :
-
-| Port | Service | Port | Service |
-|------|---------|------|---------|
-| 21 | FTP | 443 | HTTPS |
-| 22 | SSH | 445 | SMB |
-| 23 | Telnet | 3306 | MySQL |
-| 25 | SMTP | 3389 | RDP |
-| 53 | DNS | 5432 | PostgreSQL |
-| 80 | HTTP | 6379 | Redis |
-| 110 | POP3 | 8080 | HTTP-Proxy |
-| 143 | IMAP | 27017 | MongoDB |
-
-## 🔙 Codes de retour
-
-| Code | Signification |
-|------|---------------|
-| `0` | Succès - Au moins un port ouvert trouvé |
-| `1` | Erreur - Argument invalide ou problème d'exécution |
-| `2` | Aucun port ouvert trouvé |
-
-## 📁 Structure du projet
+## Output
 
 ```
-port-scanner/
-├── portscan.sh      # Script principal
-├── README.md        # Documentation (ce fichier)
-├── LICENSE          # Licence MIT
-└── examples/        # Exemples de sortie (optionnel)
-    └── scan_results.txt
+[✓] open          — Port is open
+[✗] closed        — Port is closed  
+[!] filtered      — Blocked by firewall
+[!] open|filtered — No response (UDP)
 ```
 
-## ⚠️ Avertissement légal
+## Features
 
-> **Important** : Ce script est destiné à des fins éducatives et d'audit de vos propres systèmes uniquement. Scanner des ports sur des systèmes sans autorisation explicite est **illégal** dans de nombreuses juridictions. Utilisez cet outil de manière responsable et éthique.
+- Multi-threaded scanning (100 threads default)
+- Works with or without Scapy
+- JSON and TXT export
+- 50+ known services detection
+- Progress bar for large scans
 
-## 🛠️ Fonctionnement technique
+## Disclaimer
 
-Le scanner utilise la fonctionnalité native de Bash `/dev/tcp` pour établir des connexions TCP :
+For educational and authorized testing only. Unauthorized scanning is illegal.
 
-```bash
-timeout $DELAY bash -c "echo >/dev/tcp/$HOST/$PORT" 2>/dev/null
-```
+## Author
 
-Cette approche présente plusieurs avantages :
-- Aucune dépendance externe (pas besoin de `nmap` ou `netcat`)
-- Portable sur tous les systèmes avec Bash 4+
-- Léger et rapide
-
-## 🤝 Contribution
-
-Les contributions sont les bienvenues ! N'hésitez pas à :
-
-1. Fork le projet
-2. Créer une branche (`git checkout -b feature/amelioration`)
-3. Commit vos changements (`git commit -m 'Ajout d'une fonctionnalité'`)
-4. Push sur la branche (`git push origin feature/amelioration`)
-5. Ouvrir une Pull Request
-
-## 📝 License
-
-Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de détails.
-
-## 👤 Auteur
-
-**RDaneel-5090**
-
-- 🐙 GitHub: [@RDaneel-5090](https://github.com/RDaneel-5090)
-
----
-
-<div align="center">
-
-⭐ **Si ce projet vous a été utile, n'hésitez pas à lui donner une étoile !** ⭐
-
-</div>
+RDaneel-5090
