@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 """
 PortScan Pro - Scanner de ports réseau avancé
-Basé sur portscan.sh de RDaneel-5090, amélioré avec les techniques de pYscan
 
 Fonctionnalités:
 - 8 types de scan (TCP Connect, SYN, UDP, NULL, FIN, Xmas, ACK, Window)
@@ -731,7 +730,7 @@ def show_banner():
     print(r"  ║                                                               ║")
     print(r"  ╚═══════════════════════════════════════════════════════════════╝")
     print(f"{Colors.NC}")
-    print(f"  {Colors.GRAY}Basé sur portscan.sh de RDaneel-5090{Colors.NC}")
+    print(f"  {Colors.GRAY}RDaneel-5090{Colors.NC}")
     print()
 
 
