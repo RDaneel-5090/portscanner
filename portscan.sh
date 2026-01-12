@@ -1,30 +1,4 @@
 #!/bin/bash
-
-#===============================================================================
-#
-#          FILE: portscan.sh
-#
-#         USAGE: ./portscan.sh -h <host> [OPTIONS]
-#
-#   DESCRIPTION: Scanner de ports réseau en Bash
-#                Permet de vérifier si des ports sont ouverts sur une machine
-#                cible. Utile pour l'audit de sécurité et le diagnostic réseau.
-#
-#       OPTIONS: Voir la fonction show_help() ou lancer avec -H
-#
-#  REQUIREMENTS: bash 4+, timeout (coreutils)
-#
-#        AUTHOR: RDaneel-5090
-#       VERSION: 1.0.0
-#       CREATED: 2025
-#
-#===============================================================================
-
-#===============================================================================
-# CONFIGURATION & VARIABLES GLOBALES
-#===============================================================================
-
-# Version du script
 readonly VERSION="1.0.0"
 
 # Couleurs pour l'affichage (améliore la lisibilité)
