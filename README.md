@@ -1,4 +1,4 @@
-# PortScan Pro
+# PortScan
 
 ```
   ██████╗  ██████╗ ██████╗ ████████╗███████╗ ██████╗ █████╗ ███╗   ██╗
@@ -14,8 +14,8 @@ A fast multi-threaded port scanner with CLI and interactive mode.
 ## Installation
 
 ```bash
-git clone https://github.com/RDaneel-5090/portscan-pro.git
-cd portscan-pro
+git clone https://github.com/RDaneel-5090/portscan.git
+cd portscan
 pip install scapy  # optional, for advanced scans
 ```
 
@@ -28,9 +28,9 @@ pip install scapy  # optional, for advanced scans
 python portscan_pro.py
 
 # CLI mode
-python portscan_pro.py -H 192.168.1.1 -p 22,80,443
-python portscan_pro.py -H example.com -r 1-1000
-python portscan_pro.py -H 10.0.0.1 -p top -o results.json
+python portscan.py -H 192.168.1.1 -p 22,80,443
+python portscan.py -H example.com -r 1-1000
+python portscan.py -H 10.0.0.1 -p top -o results.json
 ```
 
 ## Commands (Interactive)
