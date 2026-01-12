@@ -13,7 +13,6 @@ Fonctionnalités:
 - Barre de progression
 
 Auteur original: RDaneel-5090
-Améliorations: Claude (Anthropic)
 """
 
 import sys
