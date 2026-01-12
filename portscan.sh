@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-PortScan Pro - Scanner de ports réseau avancé
+PortScan - Scanner de ports réseau avancé
 
 Fonctionnalités:
 - 8 types de scan (TCP Connect, SYN, UDP, NULL, FIN, Xmas, ACK, Window)
